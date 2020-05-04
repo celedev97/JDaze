@@ -21,11 +21,4 @@ public class Camera extends GameObject {
         scale *= .5f;
     }
 
-    @Override
-    protected void draw(Graphics graphics, int x, int y, float scale) {
-        //a camera shouldn't be drawn, NEVER
-        //unless you are an idiot...
-        //or you want a gizmo...
-        //fuck it TODO: write some proper Camera javadoc
-    }
 }

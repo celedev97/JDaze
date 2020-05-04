@@ -1,8 +1,12 @@
 package dev.federicocapece.jdaze;
 
+import dev.federicocapece.jdaze.collider.Collider;
+
 import java.awt.*;
 
 public abstract class GameObject {
+    //TODO: javadoc
+
     public Collider collider = null;
 
     public Vector position;
@@ -22,9 +26,10 @@ public abstract class GameObject {
 
     protected void update(){}
 
-    protected abstract void draw(Graphics graphics, int x, int y, float scale);
+    protected void draw(Graphics graphics, int x, int y, float scale){}
 
     public void move(Vector offset){
         position.sumUpdate(offset);
     }
+
 }
