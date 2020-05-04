@@ -4,15 +4,31 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
 
+
+/**
+ * <pre>
+ * Input manager for the game engine, refer to it by using:
+ * Engine.input.[...];
+ * </pre>
+ */
 public class Input {
-    HashSet<Integer> pressed = new HashSet<>();
+    /**
+     * The set of keys that are currently pressed,
+     * do not touch this directly
+     */
+    private HashSet<Integer> pressed = new HashSet<>();
 
-    //since it's protected it cannot be instantiated outside this package
-    protected Input(){
 
-    }
+    /**
+     * Since it's protected it cannot be instantiated from outside package.
+     */
+    protected Input(){}
 
-    protected KeyListener keyListener = new KeyListener() {
+    /**
+     * The keyListener that will send the Key data to this Input manager.
+     * It is automatically registered on the Renderer
+     */
+    protected final KeyListener keyListener = new KeyListener() {
         @Override
         public void keyTyped(KeyEvent e) {
 
@@ -29,10 +45,22 @@ public class Input {
         }
     };
 
+
+    /**
+     * Use this method inside the update() to check if a key is pressed and react to it.
+     * @param keyCode The keycode as integer, use the constants in: java.awt.KeyEvent
+     * @return true/false
+     */
     public boolean isKeyDown(int keyCode){
         return pressed.contains(keyCode);
     }
 
+    /**
+     * Use this method inside the update() to check if a key is NOT pressed and react to it.
+     * NOTE: this actually does !isKeyDown, so it is not recommended, just use !isKeyDown
+     * @param keyCode The keycode as integer, use the constants in: java.awt.KeyEvent
+     * @return true/false
+     */
     public boolean isKeyUp(int keyCode){
         return !isKeyDown(keyCode);
     }
