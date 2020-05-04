@@ -86,10 +86,12 @@ public final class Engine {
             }
         }
         elapsed = stopWatch.getElapsedMS();
-        System.out.println("POSTSLEEP: "+elapsed);
         deltaTime = elapsed / 1000f;
+        /*
+        System.out.println("POSTSLEEP: "+elapsed);
         System.out.println("deltaTime = "+deltaTime);
         System.out.println("fps = "+ (1000f/elapsed));
+        */
     }
 
 }
