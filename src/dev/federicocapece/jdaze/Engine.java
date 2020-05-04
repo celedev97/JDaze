@@ -76,7 +76,7 @@ public final class Engine {
         }
         renderer.update();
 
-        float elapsed = stopWatch.getElapsedMS();
+        float elapsed = stopWatch.getElapsedMS()+1;
         System.out.println("PRESLEEP: "+elapsed);
         if(elapsed<targetCycleMS){
             try {
