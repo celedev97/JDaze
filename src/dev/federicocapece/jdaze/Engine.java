@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public final class Engine {
+    //TODO: javadoc
     private static Thread runningThread = null;
 
     public final static Renderer renderer;

@@ -1,6 +1,7 @@
 package dev.federicocapece.jdaze.collider;
 
 import dev.federicocapece.jdaze.GameObject;
+import dev.federicocapece.jdaze.Vector;
 
 public class CircleCollider extends Collider {
     //TODO: javadoc

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 class Renderer extends Canvas {
+    //TODO: javadoc
 
     //canvas
     private Graphics canvasGraphics;

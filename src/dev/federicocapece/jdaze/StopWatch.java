@@ -1,6 +1,8 @@
 package dev.federicocapece.jdaze;
 
 class StopWatch {
+  //TODO: javadoc
+
   private static final long NANO_TO_MS = 1000000;
 
   private long startTime = 0;
