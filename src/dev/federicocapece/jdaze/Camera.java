@@ -5,7 +5,7 @@ import java.awt.*;
 public class Camera extends GameObject {
     //TODO: javadoc
 
-    public Camera() {
+    protected Camera() {
         super();
     }
 
