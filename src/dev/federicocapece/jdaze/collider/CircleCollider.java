@@ -16,7 +16,7 @@ public class CircleCollider extends Collider {
     public boolean collide(Collider collider, boolean firstTry){
         if(collider.getClass() == this.getClass()){
             CircleCollider circle2 = (CircleCollider) collider;
-            return (circle2.ray + ray)< this.gameObject.position.sub(collider.gameObject.position).magnitude();
+            return (circle2.ray + this.ray)< Vector.distance(this.gameObject.getPosition(), collider.gameObject.getPosition());
         }
 
         if(firstTry)

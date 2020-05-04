@@ -9,7 +9,11 @@ public abstract class GameObject {
 
     public Collider collider = null;
 
-    public Vector position;
+    private Vector position;
+
+    public Vector getPosition(){
+        return position;
+    }
 
     public GameObject() {
         this(Vector.ZERO());
