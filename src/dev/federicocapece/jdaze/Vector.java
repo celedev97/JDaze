@@ -9,11 +9,11 @@ public class Vector {
     /**
      * The x coordinate of the Vector
      */
-    private float x;
+    public float x;
     /**
      * The y coordinate of the Vector
      */
-    private float y;
+    public float y;
 
     //#region Static methods used as constants
 
@@ -129,26 +129,6 @@ public class Vector {
      */
     public void setY(float y) {
         this.y = y;
-    }
-
-    //#endregion
-
-    //#region Getters
-
-    /**
-     * Return the value of the x coordinate of this Vector
-     * @return the x coordinate value
-     */
-    public float getX() {
-        return x;
-    }
-
-    /**
-     * Return the value of the y coordinate of this Vector
-     * @return the y coordinate value
-     */
-    public float getY() {
-        return y;
     }
 
     //#endregion
