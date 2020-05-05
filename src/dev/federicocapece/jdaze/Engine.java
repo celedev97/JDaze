@@ -72,7 +72,11 @@ public final class Engine {
         runningThread.start();
     }
 
-    public static void update(){
+    public void stop(){
+        if(runningThread != null) runningThread.interrupt();
+    }
+
+    private static void update(){
         //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
         //run each gameObject update
