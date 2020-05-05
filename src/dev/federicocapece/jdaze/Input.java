@@ -11,24 +11,18 @@ import java.util.HashSet;
  * Engine.input.[...];
  * </pre>
  */
-public class Input {
+public final class Input {
     /**
      * The set of keys that are currently pressed,
      * do not touch this directly
      */
-    private HashSet<Integer> pressed = new HashSet<>();
-
-
-    /**
-     * Since it's protected it cannot be instantiated from outside package.
-     */
-    protected Input(){}
+    private static HashSet<Integer> pressed = new HashSet<>();
 
     /**
      * The keyListener that will send the Key data to this Input manager.
      * It is automatically registered on the Renderer
      */
-    protected final KeyListener keyListener = new KeyListener() {
+    protected static final KeyListener keyListener = new KeyListener() {
         @Override
         public void keyTyped(KeyEvent e) {
 
@@ -51,7 +45,7 @@ public class Input {
      * @param keyCode The keycode as integer, use the constants in: java.awt.KeyEvent
      * @return true/false
      */
-    public boolean isKeyDown(int keyCode){
+    public static boolean isKeyDown(int keyCode){
         return pressed.contains(keyCode);
     }
 
@@ -61,7 +55,7 @@ public class Input {
      * @param keyCode The keycode as integer, use the constants in: java.awt.KeyEvent
      * @return true/false
      */
-    public boolean isKeyUp(int keyCode){
+    public static boolean isKeyUp(int keyCode){
         return !isKeyDown(keyCode);
     }
 

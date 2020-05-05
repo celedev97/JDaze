@@ -10,7 +10,6 @@ public final class Engine {
 
     public final static Renderer renderer;
     public final static Camera camera;
-    public final static Input input = new Input();
 
     protected final static ArrayList<GameObject> gameObjects;
 
@@ -23,7 +22,7 @@ public final class Engine {
         gameObjects = new ArrayList<>();
 
         renderer = new Renderer();
-        renderer.addKeyListener(input.keyListener);
+        renderer.addKeyListener(Input.keyListener);
 
         camera = renderer.camera;
     }
