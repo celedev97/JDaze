@@ -42,11 +42,10 @@ class Renderer extends Canvas {
     }
 
     public void update(GameObject gameObject) {
-        if (gameObject == camera) return;
-        //TODO: calcoli basati sulla telecamera
-        int cameraOffsetX = (int)(gameObject.getPosition().getX() - camera.getPosition().getX() + halfCanvasWidth);
-        int cameraOffsetY = (int)(gameObject.getPosition().getY() - camera.getPosition().getY() + halfCanvasHeight);
-        gameObject.draw(bufferGraphics,cameraOffsetX, cameraOffsetY, camera.getScale());
+        //TODO: add checks to avoid drawing if the offset is out of the camera
+        int cameraOffsetX = (int)((gameObject.position.x - camera.position.x)* camera.getScale()) + halfCanvasWidth;
+        int cameraOffsetY = (int)((gameObject.position.y - camera.position.y)* camera.getScale()) + halfCanvasHeight;
+        gameObject.draw(bufferGraphics,cameraOffsetX , cameraOffsetY, camera.getScale());
     }
 
     public void update() {
