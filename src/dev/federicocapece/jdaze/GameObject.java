@@ -8,7 +8,7 @@ public abstract class GameObject {
     //TODO: javadoc
 
     public Collider collider = null;
-    public final Vector position;
+    public final Vector position = Vector.ZERO();
 
     public GameObject() {
         this(Vector.ZERO());
@@ -19,7 +19,7 @@ public abstract class GameObject {
     }
 
     public GameObject(Vector position){
-        this.position = position;
+        this.position.set(position);
         Engine.gameObjects.add(this);
     }
 

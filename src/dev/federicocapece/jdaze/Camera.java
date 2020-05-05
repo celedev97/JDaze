@@ -13,7 +13,7 @@ public class Camera extends GameObject {
      * This is protected to avoid creating new cameras.
      */
     protected Camera() {
-        super();
+        position.set(0,0);
     }
 
 
