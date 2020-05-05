@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+//TODO: Probably the renderer class can be protected, test it.
+//if it is possible to set it protected consider renaming it to Engine.canvas
 class Renderer extends Canvas {
     //TODO: javadoc
 

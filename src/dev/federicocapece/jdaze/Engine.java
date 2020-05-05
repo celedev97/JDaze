@@ -21,9 +21,15 @@ public final class Engine {
     static {
         gameObjects = new ArrayList<>();
 
+        //creating the renderer canvas
         renderer = new Renderer();
+        //linking the Input listeners to the canvas
         renderer.addKeyListener(Input.keyListener);
+        renderer.addMouseListener(Input.mouseInputListener);
+        renderer.addMouseMotionListener(Input.mouseInputListener);
+        renderer.addMouseWheelListener(Input.mouseWheelListener);
 
+        //setting the Engine.camera to the renderer.camera
         camera = renderer.camera;
     }
 
@@ -67,13 +73,25 @@ public final class Engine {
     }
 
     public static void update(){
+        //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
-        renderer.clean();
+        //run each gameObject update
         for (GameObject gameObject : gameObjects){
             gameObject.update();
+        }
+
+        //clean the screen buffer
+        renderer.clean();
+        //draw the gameObjects on the buffer
+        for (GameObject gameObject : gameObjects){
             renderer.update(gameObject);
         }
+        //draw the buffer to the canvas
         renderer.update();
+
+        //cleaning mouse wheel rotation for next game loop
+        Input.mouseWheelReset();
+
 
         float elapsed = stopWatch.getElapsedMS();
         //System.out.println("PRESLEEP: "+elapsed);
