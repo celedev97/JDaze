@@ -7,8 +7,7 @@ import java.util.HashSet;
 
 /**
  * <pre>
- * Input manager for the game engine, refer to it by using:
- * Engine.input.[...];
+ * Input manager for the game engine
  * </pre>
  */
 public final class Input {
