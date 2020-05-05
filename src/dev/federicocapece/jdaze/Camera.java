@@ -39,17 +39,48 @@ public class Camera extends GameObject {
 
 
     /**
+     * Zoom out the camera by X Multiplier
+     * @param multiplier
+     */
+    public void zoomIn(float multiplier){
+        if(multiplier == 0) throw new ArithmeticException("Invalid multiplier (0 not accepted)");
+        scale *= multiplier;
+    }
+
+    /**
+     * Zoom out the camera by X Multiplier
+     * @param multiplier
+     */
+    public void zoomOut(float multiplier){
+        if(multiplier == 0) throw new ArithmeticException("Invalid multiplier (0 not accepted)");
+        scale /= multiplier;
+    }
+
+
+    /**
      * Zoom in the camera by X2
      */
     public void zoomIn(){
-        scale *= 2;
+        zoomIn(2);
     }
 
     /**
      * Zoom out the camera by X2
      */
     public void zoomOut(){
-        scale *= .5f;
+        zoomIn(.5f);
+    }
+
+
+    /**
+     * Add a float to the current scale multiplier.
+     * This can be useful if you want to gradually zoom in by using deltaTime
+     * @param zoom the new zoom to add the the scale
+     */
+    public void addZoom(float zoom){
+        float newScale = zoom + scale;
+        if(newScale == 0) throw new ArithmeticException("Invalid zoom (0 not accepted)");
+        scale = newScale;
     }
 
 }
