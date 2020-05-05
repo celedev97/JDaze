@@ -5,7 +5,7 @@ import dev.federicocapece.jdaze.GameObject;
 public abstract class Collider {
     //TODO: javadoc
 
-    protected GameObject gameObject;
+    public final GameObject gameObject;
 
     public Collider(GameObject gameObject){
         this.gameObject = gameObject;
@@ -17,4 +17,5 @@ public abstract class Collider {
 
     protected abstract boolean collide(Collider collider, boolean fistTry);
 
+    public abstract float size();
 }

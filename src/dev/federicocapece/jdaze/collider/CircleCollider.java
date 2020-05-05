@@ -13,10 +13,16 @@ public class CircleCollider extends Collider {
         this.ray = ray;
     }
 
+    @Override
+    public float size() {
+        return ray;
+    }
+
+    @Override
     public boolean collide(Collider collider, boolean firstTry){
         if(collider.getClass() == this.getClass()){
             CircleCollider circle2 = (CircleCollider) collider;
-            return (circle2.ray + this.ray)< Vector.distance(this.gameObject.getPosition(), collider.gameObject.getPosition());
+            return (circle2.ray + this.ray)< Vector.distance(this.gameObject.position, collider.gameObject.position);
         }
 
         if(firstTry)
@@ -26,4 +32,6 @@ public class CircleCollider extends Collider {
         System.out.println(this.getClass()+" has no way to check collision with: "+collider.getClass());
         return false;
     }
+
+
 }
