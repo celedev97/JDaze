@@ -52,5 +52,4 @@ public class CircleCollider extends Collider {
         return (collider.size() + this.ray)< Vector.distance(this.gameObject.position, collider.gameObject.position);
     }
 
-
 }
