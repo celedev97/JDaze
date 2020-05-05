@@ -263,6 +263,56 @@ public class Vector {
 
     //#endregion
 
+    //#region Divide
+
+    /**
+     * Divide this vector coordinates by a dividend.
+     * This does not edit this vector
+     * @param dividend the dividend to use for the multiplication
+     * @return the multiplication result
+     */
+    public Vector divide(float dividend){
+        return new Vector(this.x * dividend, this.y * dividend);
+    }
+
+    /**
+     * Divide this vector coordinates by a dividend.,
+     * then store the results into this vector.
+     * @param dividend the dividend to use for the multiplication
+     * @return this vector after the division
+     */
+    public Vector divideUpdate(float dividend){
+        this.x *= dividend;
+        this.y *= dividend;
+        return this;
+    }
+
+    //#endregion
+
+    //#region Normalize
+
+    /**
+     * Return a normalized copy of this Vector
+     * This does not edit this vector
+     * @return the normalized Vector
+     */
+    public Vector normalized() {
+        return this.divide(this.magnitude());
+    }
+
+    /**
+     * Normalize this vector, than return it
+     * This edits the vector on wich it's called
+     * NOTE: if you are using a Vector just temporarily
+     * it is recommended to use this instead of normalized
+     * @return the normalized Vector
+     */
+    public Vector normalize() {
+        return this.divideUpdate(this.magnitude());
+    }
+
+    //#endregion
+
     /**
      * Returns the length of the Vector
      * @return the length
