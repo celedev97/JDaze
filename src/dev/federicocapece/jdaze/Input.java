@@ -11,15 +11,28 @@ import java.util.HashSet;
  * </pre>
  */
 public final class Input {
-    //#region Internal data
+    //#region Private status data
 
     /**
      * The set of keys that are currently pressed,
      * do not touch this directly
      */
-    private static HashSet<Integer> pressed = new HashSet<>();
-
+    private static HashSet<Integer> keysDown = new HashSet<>();
+    private static HashSet<Integer> mouseButtonsDown = new HashSet<>();
     private static float mouseWheelRotation = 0f;
+
+    private static final Vector mousePosition = new Vector(0,0);
+
+    //#endregion
+
+    //#region Engine methods
+
+    /**
+     * Internal method for resetting the mouse wheel status, called after each update
+     */
+    protected static void mouseWheelReset() {
+        mouseWheelRotation = 0;
+    }
 
     //#endregion
 
@@ -37,12 +50,12 @@ public final class Input {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            pressed.add((int)e.getKeyCode());
+            keysDown.add((int)e.getKeyCode());
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            pressed.remove((int)e.getKeyCode());
+            keysDown.remove((int)e.getKeyCode());
         }
     };
 
@@ -58,12 +71,12 @@ public final class Input {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            System.out.println("DOWNMOUSE");
+            mouseButtonsDown.add(e.getButton());
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            System.out.println("UPMOUSE");
+            mouseButtonsDown.remove(e.getButton());
         }
 
         @Override
@@ -83,7 +96,7 @@ public final class Input {
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            System.out.println("MOVEMOUSE");
+            mousePosition.set(e.getX(), e.getY());
         }
     };
 
@@ -108,7 +121,7 @@ public final class Input {
      * @return true/false
      */
     public static boolean isKeyDown(int keyCode){
-        return pressed.contains(keyCode);
+        return keysDown.contains(keyCode);
     }
 
     /**
@@ -137,9 +150,39 @@ public final class Input {
         return mouseWheelRotation;
     }
 
-    protected static void mouseWheelReset() {
-        mouseWheelRotation = 0;
+    /**
+     * Use this method inside the update() to check if a mouse button is pressed and react to it.
+     * @param buttonCode the MouseButton code as integer, use constants in: java.awt.MouseEvent
+     * @return
+     */
+    public static boolean isMouseDown(int buttonCode) {
+        return mouseButtonsDown.contains(buttonCode);
     }
+
+    /**
+     * Get the mouse position as a Vector.
+     * The mouse position is referred to the canvas, not to the world position.
+     * NOTE: You could theoretically store it inside your class
+     * and reuse it as it's directly updated by the Input Manager.
+     * @return the Vector representing the mouse position
+     */
+    public Vector getMousePosition(){
+        return mousePosition;
+    }
+
+
+    /**
+     * Get the mouse position inside the world coordinate system as a Vector.
+     * This is calculated every time you call it by using the Camera position,
+     * so it's recommended to store it and not to call this multiple time for every update.
+     * @return the Vector representing the mouse position
+     */
+    public Vector getMouseWorldPosition(){
+        System.out.println("Sorry i'm too lazy to implement this now");
+        return null;
+    }
+
+
     //#endregion
 
 }
