@@ -8,12 +8,7 @@ public abstract class GameObject {
     //TODO: javadoc
 
     public Collider collider = null;
-
-    private Vector position;
-
-    public Vector getPosition(){
-        return position;
-    }
+    public final Vector position;
 
     public GameObject() {
         this(Vector.ZERO());
@@ -28,11 +23,15 @@ public abstract class GameObject {
         Engine.gameObjects.add(this);
     }
 
+    //#region Methods that can be overridden
+
     protected void update(){}
 
     protected void draw(Graphics graphics, int x, int y, float scale){}
 
-    public void move(Vector offset){
+    //#endregion
+
+    public final void move(Vector offset){
         position.sumUpdate(offset);
     }
 
