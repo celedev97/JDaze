@@ -26,7 +26,7 @@ public abstract class Collider {
     /**
      * This method checks if this collider collide with the other one.
      * Id this collider can't solve the collision it will send the check to the other collider.
-     * @param collider
+     * @param collider the other collider that should be checked
      * @return a float representing the size of the collider
      */
     public boolean collide(Collider collider){
@@ -42,8 +42,9 @@ public abstract class Collider {
      * - If it's not the firstTry (alas the other collider asked to your collider to solve the collision)
      *  simply check the size and compare it with the distance.
      * </pre>
-     * @param collider
-     * @param fistTry
+     * @param collider the other collider that should be checked
+     * @param fistTry true if this is the first collider trying to check the collision, false if this was already fowarded
+     *                by the other collider's collide
      * @return a float representing the size of the collider
      */
     protected abstract boolean collide(Collider collider, boolean fistTry);
