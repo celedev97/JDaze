@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":6,"i2":6};
+<script type="text/javascript">var data = {"i0":10,"i1":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -186,14 +186,6 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
-<td class="colFirst"><code>protected abstract boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collide(dev.federicocapece.jdaze.collider.Collider,boolean)">collide</a></span>&#8203;(<a href="Collider.html" title="class in dev.federicocapece.jdaze.collider">Collider</a>&nbsp;collider,
-boolean&nbsp;fistTry)</code></th>
-<td class="colLast">
-<div class="block">This method checks if this collider collide with the other one.</div>
-</td>
-</tr>
-<tr class="altColor" id="i2">
 <td class="colFirst"><code>abstract float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#size()">size</a></span>()</code></th>
 <td class="colLast">
@@ -209,7 +201,7 @@ boolean&nbsp;fistTry)</code></th>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
-</a><code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></div>
+</a><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></div>
 </section>
 </li>
 </ul>
@@ -270,29 +262,6 @@ boolean&nbsp;fistTry)</code></th>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>collider</code> - the other collider that should be checked</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a float representing the size of the collider</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="collide(dev.federicocapece.jdaze.collider.Collider,boolean)">collide</a></h3>
-<div class="memberSignature"><span class="modifiers">protected abstract</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">collide</span>&#8203;(<span class="arguments"><a href="Collider.html" title="class in dev.federicocapece.jdaze.collider">Collider</a>&nbsp;collider,
-boolean&nbsp;fistTry)</span></div>
-<div class="block">This method checks if this collider collide with the other one.
- <pre>
- If you need to implement this:
- - Check the other collider type and implement the collision between the collider you can
- - If you don't recognize the collider and it's the firstTry then use the other collider's collide method.
- - If it's not the firstTry (alas the other collider asked to your collider to solve the collision)
-  simply check the size and compare it with the distance.
- </pre></div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>collider</code> - the other collider that should be checked</dd>
-<dd><code>fistTry</code> - true if this is the first collider trying to check the collision, false if this was already fowarded
-                by the other collider's collide</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a float representing the size of the collider</dd>
 </dl>
