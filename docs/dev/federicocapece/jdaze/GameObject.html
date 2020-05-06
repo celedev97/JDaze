@@ -97,6 +97,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <pre>public abstract class <span class="typeNameLabel">GameObject</span>
 extends java.lang.Object</pre>
+<div class="block">A GameObject; it is a game element that will get updated by the engine.
+ it can be drawn onto the screen, moved and it includes collision checking.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -120,12 +122,16 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code><a href="collider/Collider.html" title="class in dev.federicocapece.jdaze.collider">Collider</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collider">collider</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The collider of this GameObject see Collider.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#position">position</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The position of the gameObject.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -150,16 +156,22 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">GameObject</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Create a gameObject at the position {0,0}</div>
+</td>
 </tr>
 <tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(float,float)">GameObject</a></span>&#8203;(float&nbsp;x,
 float&nbsp;y)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Create a gameObject setting its position</div>
+</td>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(dev.federicocapece.jdaze.Vector)">GameObject</a></span>&#8203;(<a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a>&nbsp;position)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Create a gameObject setting its position</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -187,12 +199,16 @@ float&nbsp;y)</code></th>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#move(dev.federicocapece.jdaze.Vector)">move</a></span>&#8203;(<a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a>&nbsp;offset)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Move the GameObject and checks collisions</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start()">start</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This method get executed once after the initialization of the gameObject</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -220,12 +236,17 @@ float&nbsp;y)</code></th>
 <section class="detail">
 <h3><a id="collider">collider</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="collider/Collider.html" title="class in dev.federicocapece.jdaze.collider">Collider</a></span>&nbsp;<span class="memberName">collider</span></div>
+<div class="block">The collider of this GameObject see Collider.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="position">position</a></h3>
 <div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a></span>&nbsp;<span class="memberName">position</span></div>
+<div class="block">The position of the gameObject.
+ Updating this manually will actually move the gameObject,
+ but it is not reccomended since it will not check collisions.
+ You should always use the move method unless you have a valid reason to use this one.</div>
 </section>
 </li>
 </ul>
@@ -242,6 +263,7 @@ float&nbsp;y)</code></th>
 <section class="detail">
 <h3><a id="&lt;init&gt;()">GameObject</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">GameObject</span>()</div>
+<div class="block">Create a gameObject at the position {0,0}</div>
 </section>
 </li>
 <li class="blockList">
@@ -249,12 +271,23 @@ float&nbsp;y)</code></th>
 <h3><a id="&lt;init&gt;(float,float)">GameObject</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">GameObject</span>&#8203;(<span class="arguments">float&nbsp;x,
 float&nbsp;y)</span></div>
+<div class="block">Create a gameObject setting its position</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>x</code> - The x coordinate of the position Vector</dd>
+<dd><code>y</code> - The y coordinate of the position Vector</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="&lt;init&gt;(dev.federicocapece.jdaze.Vector)">GameObject</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">GameObject</span>&#8203;(<span class="arguments"><a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a>&nbsp;position)</span></div>
+<div class="block">Create a gameObject setting its position</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>position</code> - The position as a vector</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -271,12 +304,18 @@ float&nbsp;y)</span></div>
 <section class="detail">
 <h3><a id="start()">start</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">start</span>()</div>
+<div class="block">This method get executed once after the initialization of the gameObject</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="move(dev.federicocapece.jdaze.Vector)">move</a></h3>
 <div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">move</span>&#8203;(<span class="arguments"><a href="Vector.html" title="class in dev.federicocapece.jdaze">Vector</a>&nbsp;offset)</span></div>
+<div class="block">Move the GameObject and checks collisions</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>offset</code> - the movement that will be done in this frame.</dd>
+</dl>
 </section>
 </li>
 </ul>

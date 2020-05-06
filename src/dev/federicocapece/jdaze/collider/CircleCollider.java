@@ -35,9 +35,10 @@ public class CircleCollider extends Collider {
 
     /**
      * Check if this collider collide with another collider
-     * @param collider
-     * @param firstTry
-     * @return
+     * @param collider the other collider to check
+     * @param firstTry a variable indicating if this collider is checking the collision because the Engine decided so
+     *                 or if it is checking the collision because it has been required by the other collider.
+     * @return true if they collide, false otherwise.
      */
     @Override
     public boolean collide(Collider collider, boolean firstTry){

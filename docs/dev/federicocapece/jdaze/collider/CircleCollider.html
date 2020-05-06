@@ -244,9 +244,11 @@ boolean&nbsp;firstTry)</span></div>
 <div class="block">Check if this collider collide with another collider</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>collider</code> - </dd>
-<dd><code>firstTry</code> - </dd>
+<dd><code>collider</code> - the other collider to check</dd>
+<dd><code>firstTry</code> - a variable indicating if this collider is checking the collision because the Engine decided so
+                 or if it is checking the collision because it has been required by the other collider.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if they collide, false otherwise.</dd>
 </dl>
 </section>
 </li>

@@ -40,7 +40,7 @@ public class Camera extends GameObject {
 
     /**
      * Zoom out the camera by X Multiplier
-     * @param multiplier
+     * @param multiplier the multiplier that will be used for the camera zoom in
      */
     public void zoomIn(float multiplier){
         if(multiplier == 0) throw new ArithmeticException("Invalid multiplier (0 not accepted)");
@@ -49,7 +49,7 @@ public class Camera extends GameObject {
 
     /**
      * Zoom out the camera by X Multiplier
-     * @param multiplier
+     * @param multiplier the multiplier that will be used for the camera zoom out
      */
     public void zoomOut(float multiplier){
         if(multiplier == 0) throw new ArithmeticException("Invalid multiplier (0 not accepted)");

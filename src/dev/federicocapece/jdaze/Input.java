@@ -153,7 +153,7 @@ public final class Input {
     /**
      * Use this method inside the update() to check if a mouse button is pressed and react to it.
      * @param buttonCode the MouseButton code as integer, use constants in: java.awt.MouseEvent
-     * @return
+     * @return true/false according to the mouse button status
      */
     public static boolean isMouseDown(int buttonCode) {
         return mouseButtonsDown.contains(buttonCode);
