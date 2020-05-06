@@ -7,7 +7,6 @@ import java.awt.*;
  * For now there can be only one camera.
  */
 public class Camera extends GameObject {
-    //TODO: javadoc
 
     /**
      * This is protected to avoid creating new cameras.
@@ -16,12 +15,10 @@ public class Camera extends GameObject {
         position.set(0,0);
     }
 
-
     /**
      * The scale of the camera
      */
     private float scale = 1;
-
 
     /**
      * Get the scale of the camera as a float
@@ -36,7 +33,6 @@ public class Camera extends GameObject {
     public float getScale() {
         return scale;
     }
-
 
     /**
      * Zoom out the camera by X Multiplier
@@ -55,7 +51,6 @@ public class Camera extends GameObject {
         if(multiplier == 0) throw new ArithmeticException("Invalid multiplier (0 not accepted)");
         scale /= multiplier;
     }
-
 
     /**
      * Zoom in the camera by X2

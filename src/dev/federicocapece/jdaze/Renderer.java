@@ -18,24 +18,20 @@ class Renderer extends Canvas {
      */
     private Graphics canvasGraphics;
 
-
     /**
      * Half of the canvas height, this is useful for offset calculations
      */
     private int halfCanvasHeight;
-
 
     /**
      * Half of the canvas width, this is useful for offset calculations
      */
     private int halfCanvasWidth;
 
-
     /**
      * The buffered image that this renderer uses for drawing
      */
     private BufferedImage image;
-
 
     /**
      * The graphic used to draw on the BufferedImage used by this rendered.
@@ -55,7 +51,6 @@ class Renderer extends Canvas {
      * in future versions.
      */
     protected final static Camera camera = new Camera();;
-
 
     /**
      * Initialize the renderer.
@@ -96,7 +91,6 @@ class Renderer extends Canvas {
     protected void update() {
         canvasGraphics.drawImage(image,0,0,null);
     }
-
 
     /**
      * Turn the screen buffer full white
