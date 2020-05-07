@@ -162,24 +162,18 @@ public final class Engine {
         //cleaning mouse wheel rotation for next game loop
         Input.mouseWheelReset();
 
-
-        float elapsed = stopWatch.getElapsedMS();
-        //System.out.println("PRESLEEP: "+elapsed);
-        if(elapsed<targetCycleMS){
-            //TODO: replace Thread.sleep with something more precise
-            try {
-                Thread.sleep((long) (targetCycleMS - elapsed));
-            } catch (InterruptedException e) {
-                return;
+        //sleeping for the remaining time of this cycle
+        float targetSleep = targetCycleMS - stopWatch.getElapsedMS();
+        try {
+            while(targetSleep > 1){
+                Thread.sleep(1);
+                targetSleep = targetCycleMS - stopWatch.getElapsedMS();
             }
+        }catch (InterruptedException ex){
+            return;
         }
-        elapsed = stopWatch.getElapsedMS();
-        deltaTime = elapsed / 1000f;
-        /*
-        System.out.println("POSTSLEEP: "+elapsed);
-        System.out.println("deltaTime = "+deltaTime);
-        System.out.println("fps = "+ (1000f/elapsed));
-        */
+        //calculating deltaTime for next Cycle
+        deltaTime = stopWatch.getElapsedMS() / 1000f;
     }
 
 }
