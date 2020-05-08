@@ -3,6 +3,7 @@ package dev.federicocapece.jdaze;
 import dev.federicocapece.jdaze.collider.Collider;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A GameObject; it is a game element that will get updated by the engine.
@@ -21,6 +22,7 @@ public abstract class GameObject {
      * You should always use the move method unless you have a valid reason to use this one.
      */
     public final Vector position = Vector.ZERO();
+    private ArrayList<GameObject> lastMoveCollisions = new ArrayList<>();
 
     /**
      * Create a gameObject at the position {0,0}
@@ -89,6 +91,8 @@ public abstract class GameObject {
      * @param offset the movement that will be done in this frame.
      */
     public final void move(Vector offset){
+        lastMoveCollisions.clear();
+
         //move the item
         position.sumUpdate(offset);
 
@@ -98,16 +102,19 @@ public abstract class GameObject {
         for(GameObject gameObject : Engine.gameObjects){
             if(gameObject.collider == null) continue;
 
-            if(gameObject.collide(this.collider)){
+            //if this gameObject collides with the other one, and this callision hasn't been called already
+            if(gameObject.collide(this.collider) && !gameObject.lastMoveCollisions.contains(this)){
                 //fire collision for both the objects
                 onCollisionEnter(gameObject.collider);
                 gameObject.onCollisionEnter(this.collider);
-                //TODO: make it so that the other gameObject move won't register the collision with this if it's already registered
-                //probably the best way is to keep a list of the collision of the last frame, that gets reset at every frame?
+
+                //add this collision to my collision registers, so the other gameObject won't register it again if it does collide again.
+                lastMoveCollisions.add(gameObject);
+
+                //extrapolate from the other gameObject
                 extrapolate(gameObject.collider);
             }
         }
-
 
     }
 
@@ -116,7 +123,7 @@ public abstract class GameObject {
      * This ignores the possibility of collisions during the extrapolation for making this lighter.
      * @param collider the collider that's touching this object
      */
-    private void extrapolate(Collider collider) {
+    protected void extrapolate(Collider collider) {
         Vector extrapolateDirection = position.sub(collider.gameObject.position).normalize();
         position.sumUpdate(extrapolateDirection.multiplyUpdate(collider.size() + this.collider.size()));
     }
@@ -131,4 +138,7 @@ public abstract class GameObject {
         return this.collider != null && this.collider.collide(collider);
     }
 
+    public void Destroy(){
+        Engine.toDestroy.add(this);
+    }
 }

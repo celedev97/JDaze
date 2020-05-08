@@ -56,4 +56,5 @@ public abstract class Collider {
      * @return a float representing the size of the collider
      */
     public abstract float size();
+
 }

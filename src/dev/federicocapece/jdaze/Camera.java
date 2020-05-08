@@ -78,4 +78,23 @@ public class Camera extends GameObject {
         scale = newScale;
     }
 
+
+    /**
+     * Calculate the position of the mouse inside the game world.
+     * @param canvasPosition the position of the mouse.
+     * @return the position of the mouse inside the world coordinates system.
+     */
+    public Vector canvasToWorldPoint(Vector canvasPosition){
+        //TODO: test this.
+        /*
+        calculate offset from canvas center,
+        scale it up by the scale to obtain offset from camera in world units,
+        then add the camera position to make it relative to the world origin, and not the camera position
+        */
+        return new Vector(canvasPosition)
+                .sumUpdate(-Engine.renderer.halfCanvasWidth, -Engine.renderer.halfCanvasHeight)
+                .divideUpdate(scale)
+                .sumUpdate(position);
+    }
+
 }

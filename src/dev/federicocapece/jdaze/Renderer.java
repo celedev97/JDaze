@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
  * The Engine Renderer, this is basically a Canvas managed directly from the Engine.
  * Add Engine.renderer to your GUI, then call Engine.start() to make the renderer start drawing.
  */
-class Renderer extends Canvas {
+public class Renderer extends Canvas {
     /**
      * The graphics used to draw on canvas,
      * this should never be used except from inside the Engine.
@@ -21,12 +21,12 @@ class Renderer extends Canvas {
     /**
      * Half of the canvas height, this is useful for offset calculations
      */
-    private int halfCanvasHeight;
+    protected int halfCanvasHeight;
 
     /**
      * Half of the canvas width, this is useful for offset calculations
      */
-    private int halfCanvasWidth;
+    protected int halfCanvasWidth;
 
     /**
      * The buffered image that this renderer uses for drawing
@@ -50,7 +50,15 @@ class Renderer extends Canvas {
      * I'm not sure if i will change this and allow multiple cameras
      * in future versions.
      */
-    protected final static Camera camera = new Camera();;
+    protected final static Camera camera = new Camera();
+
+
+    /**
+     * The rendered shouldn't be created by anything other than the Engine.
+     */
+    protected Renderer(){
+
+    }
 
     /**
      * Initialize the renderer.

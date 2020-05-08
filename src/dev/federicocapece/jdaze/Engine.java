@@ -34,6 +34,11 @@ public final class Engine {
      * You shouldn't touch this directly.
      */
     protected final static ArrayList<GameObject> gameObjects;
+    /**
+     * The list of the gameObjects that will be destroyed in this Game Loop.
+     * You shouldn't touch this directly.
+     */
+    protected final static ArrayList<GameObject> toDestroy;
 
     /**
      * The StopWatch used to measure the Game Loop duration.
@@ -62,6 +67,7 @@ public final class Engine {
 
     static {
         gameObjects = new ArrayList<>();
+        toDestroy   = new ArrayList<>();
 
         //creating the renderer canvas
         renderer = new Renderer();
@@ -145,10 +151,25 @@ public final class Engine {
     private static void update(){
         //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
+
         //run each gameObject update
+        //TODO: FIX java.util.ConcurrentModificationException
+        //	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1012)
+        //	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:966)
+        //	at dev.federicocapece.jdaze.Engine.update(Engine.java:156)
+        //	at dev.federicocapece.jdaze.Engine$1.run(Engine.java:132)
+        // PROBLEM CAUSED BY GAMEOBJECT ADDS IN UPDATE, ADD NEW GAMEOBJECT IN ANOTHER CYCLE
         for (GameObject gameObject : gameObjects){
+            //skip gameObject if it's been destroyed
+            if(toDestroy.contains(gameObject)) continue;
             gameObject.update();
         }
+
+        //delete deleted gameObjects
+        for (GameObject gameObject : toDestroy){
+            gameObjects.remove(toDestroy);
+        }
+        toDestroy.clear();
 
         //clean the screen buffer
         renderer.clean();
