@@ -97,4 +97,11 @@ public class Camera extends GameObject {
                 .sumUpdate(position);
     }
 
+    /**
+     * TODO: ADD JAVA DOC, TELL PEOPLE TO NOT USE THIS UNLESS THEY KNOW WHAT THEY'RE DOING.
+     * @param scale
+     */
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
 }
