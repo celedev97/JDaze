@@ -1,7 +1,5 @@
 package dev.federicocapece.jdaze;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +36,7 @@ public final class Engine {
      * The list of the gameObjects that will be destroyed in this Game Loop.
      * You shouldn't touch this directly.
      */
-    protected final static ArrayList<GameObject> toDestroy;
+    protected final static ArrayList<GameObject> toDestroyGameObject;
 
     /**
      * The StopWatch used to measure the Game Loop duration.
@@ -67,7 +65,7 @@ public final class Engine {
 
     static {
         gameObjects = new ArrayList<>();
-        toDestroy   = new ArrayList<>();
+        toDestroyGameObject = new ArrayList<>();
 
         //creating the renderer canvas
         renderer = new Renderer();
@@ -152,24 +150,34 @@ public final class Engine {
         //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
 
-        //run each gameObject update
-        //TODO: FIX java.util.ConcurrentModificationException
-        //	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1012)
-        //	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:966)
-        //	at dev.federicocapece.jdaze.Engine.update(Engine.java:156)
-        //	at dev.federicocapece.jdaze.Engine$1.run(Engine.java:132)
-        // PROBLEM CAUSED BY GAMEOBJECT ADDS IN UPDATE, ADD NEW GAMEOBJECT IN ANOTHER CYCLE
-        for (GameObject gameObject : gameObjects){
-            //skip gameObject if it's been destroyed
-            if(toDestroy.contains(gameObject)) continue;
-            gameObject.update();
-        }
+        //#region GameObjects update() and destroy
+        synchronized (gameObjects){
+            //run each gameObject update
+            int size = gameObjects.size();
+            for (int i = 0; i < size; i++) {
+                GameObject gameObject = gameObjects.get(i);
+                //skip gameObject if it's been destroyed
+                if(!toDestroyGameObject.contains(gameObject))
+                    gameObject.update();
+            }
 
-        //delete deleted gameObjects
-        for (GameObject gameObject : toDestroy){
-            gameObjects.remove(toDestroy);
+            //delete deleted gameObjects
+            synchronized (toDestroyGameObject){
+                for (GameObject gameObject : toDestroyGameObject){
+                    gameObjects.remove(toDestroyGameObject);
+                }
+                toDestroyGameObject.clear();
+            }
         }
-        toDestroy.clear();
+        //#endregion
+
+        //
+
+
+
+
+
+
 
         //clean the screen buffer
         renderer.clean();

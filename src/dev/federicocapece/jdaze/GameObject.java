@@ -46,8 +46,9 @@ public abstract class GameObject {
      */
     public GameObject(Vector position){
         this.position.set(position);
-        Engine.gameObjects.add(this);
-        start();
+        synchronized (Engine.gameObjects){
+            Engine.gameObjects.add(this);
+        }
     }
 
     //#region Methods that can be overridden
@@ -139,6 +140,9 @@ public abstract class GameObject {
     }
 
     public void Destroy(){
-        Engine.toDestroy.add(this);
+        synchronized (Engine.toDestroyGameObject){
+            Engine.toDestroyGameObject.add(this);
+        }
     }
+
 }
