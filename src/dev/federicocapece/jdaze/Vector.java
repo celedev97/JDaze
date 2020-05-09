@@ -272,7 +272,7 @@ public class Vector {
      * @return the multiplication result
      */
     public Vector divide(float dividend){
-        return new Vector(this.x * dividend, this.y * dividend);
+        return new Vector(this.x / dividend, this.y / dividend);
     }
 
     /**
@@ -282,8 +282,8 @@ public class Vector {
      * @return this vector after the division
      */
     public Vector divideUpdate(float dividend){
-        this.x *= dividend;
-        this.y *= dividend;
+        this.x /= dividend;
+        this.y /= dividend;
         return this;
     }
 
