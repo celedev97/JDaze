@@ -82,8 +82,11 @@ public abstract class GameObject {
      * This method get called when a collision is recognized.
      * You need to override this to intercept collisions.
      * @param collider The other collider that touched this GameObject
+     * @return true if you want the collision to happen, false if you want it to be ignored
      */
-    protected void onCollisionEnter(Collider collider) {}
+    protected boolean onCollisionEnter(Collider collider) {
+        return true;
+    }
 
     //#endregion
 
@@ -107,13 +110,13 @@ public abstract class GameObject {
             if(gameObject.collide(this.collider) && !gameObject.lastMoveCollisions.contains(this)){
                 //fire collision for both the objects
                 onCollisionEnter(gameObject.collider);
-                gameObject.onCollisionEnter(this.collider);
+                if(gameObject.onCollisionEnter(this.collider))
+                    extrapolate(gameObject.collider);
 
                 //add this collision to my collision registers, so the other gameObject won't register it again if it does collide again.
                 lastMoveCollisions.add(gameObject);
 
                 //extrapolate from the other gameObject
-                extrapolate(gameObject.collider);
             }
         }
 
