@@ -50,7 +50,7 @@ public class CircleCollider extends Collider {
             return collider.collide(this, false);
 
         //the other collider doesn't have a way to check collision with a CircleCollider, so i'm just gonna use it like a circle
-        return (collider.size() + this.ray)< Vector.distance(this.gameObject.position, collider.gameObject.position);
+        return(Vector.distance(this.gameObject.position, collider.gameObject.position)<(collider.size() + this.ray));
     }
 
 }
