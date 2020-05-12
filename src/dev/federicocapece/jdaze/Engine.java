@@ -78,7 +78,7 @@ public final class Engine {
         renderer.addMouseWheelListener(Input.mouseWheelListener);
 
         //setting the Engine.camera to the renderer.camera
-        camera = renderer.camera;
+        camera = Renderer.camera;
     }
 
 
@@ -167,7 +167,6 @@ public final class Engine {
         //#region GameObjects update/destroy/draw
         synchronized (gameObjects){
             //run each gameObject update
-            int size = gameObjects.size();
             for (GameObject gameObject : gameObjects) {
                 //skip gameObject if it's been destroyed
                 if (!toDestroyGameObject.contains(gameObject))
