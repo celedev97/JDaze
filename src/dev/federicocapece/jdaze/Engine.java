@@ -1,5 +1,7 @@
 package dev.federicocapece.jdaze;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -9,13 +11,12 @@ import java.util.ArrayList;
  * then call Engine.start() and enjoy the magic of your GameObjects being automatically updated and drawn.
  * NOTE: Instantiate the GameObjects only after the start() of the Engine.
  */
-//TODO: Engine could directly extend Thread instead of using an inner thread.
 public final class Engine {
     /**
      * The thread of the gameLoop, use start() and stop() to manage it.
      * Do not touch this directly, for any reason, this will cause unexpected behaviour in the engine.
      */
-    private static Thread runningThread = null;
+    private static Thread gameThread = null;
 
     /**
      * The renderer of the Engine.
@@ -102,45 +103,54 @@ public final class Engine {
      * @param maxFPS the framecap to the Engine
      */
     public static void start(int maxFPS){
-        //if a Game thread is already running i try to close it, i cannot start a new one otherwise
-        if(runningThread != null) {
-            runningThread.interrupt();
-            while (runningThread.isAlive()) {
+        //#region Closing the last Engine thread
+        if(gameThread != null) {
+            gameThread.interrupt();
+            while (gameThread.isAlive()) {
                 try {
-                    runningThread.interrupt();
-                    runningThread.join();
+                    gameThread.interrupt();
+                    gameThread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
+        //#endregion
 
-        //initialize runtime stuff
+        //#region Forcing redraw of the GUI
+        Window frame = SwingUtilities.getWindowAncestor(Engine.renderer);
+        boolean previouslyVisible = frame.isVisible();
+        frame.setVisible(true);
+        frame.revalidate();
+        frame.repaint();
+        frame.setVisible(previouslyVisible);
+        //#endregion
+
+        //initialize engine stuff for the gameLoop
         targetCycleMS = 1000f / maxFPS;
-
         gameObjects.clear();
         renderer.init();
 
 
-        stopWatch.start();
-        //start the GameLoop
-        runningThread = new Thread(){
+        //starting the gameloop
+        gameThread = new Thread(){
             @Override
             public void run() {
+                stopWatch.start();
                 while (!isInterrupted()){
                     update();
                 }
             }
         };
 
-        runningThread.start();
+        gameThread.start();
     }
 
     /**
      * Stop the execution of the Game Loop
      */
-    public void stop(){
-        if(runningThread != null) runningThread.interrupt();
+    public static void stop(){
+        if(gameThread != null) gameThread.interrupt();
     }
 
 
@@ -151,7 +161,10 @@ public final class Engine {
         //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
 
-        //#region GameObjects update() and destroy
+        //clean the screen buffer
+        renderer.clean();
+
+        //#region GameObjects update/destroy/draw
         synchronized (gameObjects){
             //run each gameObject update
             int size = gameObjects.size();
@@ -169,17 +182,14 @@ public final class Engine {
                 }
                 toDestroyGameObject.clear();
             }
-        }
-        //#endregion
 
-        //clean the screen buffer
-        renderer.clean();
-        //draw the gameObjects on the buffer
-        synchronized (gameObjects) {
+            //draw the gameObjects on the buffer
             for (GameObject gameObject : gameObjects) {
                 renderer.update(gameObject);
             }
         }
+        //#endregion
+
         //draw the buffer to the canvas
         renderer.update();
 
@@ -196,6 +206,7 @@ public final class Engine {
         }catch (InterruptedException ex){
             return;
         }
+
         //calculating deltaTime for next Cycle
         deltaTime = stopWatch.getElapsedMS() / 1000f;
     }
