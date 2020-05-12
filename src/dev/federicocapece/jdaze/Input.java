@@ -166,7 +166,7 @@ public final class Input {
      * and reuse it as it's directly updated by the Input Manager.
      * @return the Vector representing the mouse position
      */
-    public Vector getMousePosition(){
+    public static Vector getMousePosition(){
         return mousePosition;
     }
 

@@ -87,7 +87,6 @@ public class Renderer extends Canvas {
      * @param gameObject the GameObject to be drawn
      */
     protected void update(GameObject gameObject) {
-        //TODO: add checks to avoid drawing if the offset is out of the camera
         int cameraOffsetX = (int)((gameObject.position.x - camera.position.x)* camera.getScale()) + halfCanvasWidth;
         int cameraOffsetY = (int)((gameObject.position.y - camera.position.y)* camera.getScale()) + halfCanvasHeight;
         gameObject.draw(bufferGraphics,cameraOffsetX , cameraOffsetY, camera.getScale());

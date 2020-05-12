@@ -26,11 +26,11 @@ public class CircleCollider extends Collider {
 
     /**
      * Return the size of this collider
-     * @return the ray of the circle
+     * @return the diameter of the circle
      */
     @Override
     public float size() {
-        return ray;
+        return ray*2;
     }
 
     /**
@@ -50,7 +50,9 @@ public class CircleCollider extends Collider {
             return collider.collide(this, false);
 
         //the other collider doesn't have a way to check collision with a CircleCollider, so i'm just gonna use it like a circle
-        return(Vector.distance(this.gameObject.position, collider.gameObject.position)<(collider.size() + this.ray));
+        float distance = Vector.distance(this.gameObject.position, collider.gameObject.position);
+        float sizeSum = (collider.size()/2 + this.ray);
+        return(distance<sizeSum);
     }
 
 }

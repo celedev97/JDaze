@@ -23,6 +23,7 @@ public abstract class GameObject {
      */
     public final Vector position = Vector.ZERO();
     private ArrayList<GameObject> lastMoveCollisions = new ArrayList<>();
+    private ArrayList<GameObject> nowCollision = new ArrayList<>();
 
     /**
      * Create a gameObject at the position {0,0}
@@ -82,11 +83,8 @@ public abstract class GameObject {
      * This method get called when a collision is recognized.
      * You need to override this to intercept collisions.
      * @param collider The other collider that touched this GameObject
-     * @return true if you want the collision to happen, false if you want it to be ignored
      */
-    protected boolean onCollisionEnter(Collider collider) {
-        return true;
-    }
+    protected void onCollisionEnter(Collider collider) {}
 
     //#endregion
 
@@ -95,7 +93,7 @@ public abstract class GameObject {
      * @param offset the movement that will be done in this frame.
      */
     public final void move(Vector offset){
-        lastMoveCollisions.clear();
+        nowCollision.clear();
 
         //move the item
         position.sumUpdate(offset);
@@ -106,19 +104,27 @@ public abstract class GameObject {
         for(GameObject gameObject : Engine.gameObjects){
             if(gameObject.collider == null || gameObject.collider == collider) continue;
 
-            //if this gameObject collides with the other one, and this callision hasn't been called already
-            if(gameObject.collide(this.collider) && !gameObject.lastMoveCollisions.contains(this)){
-                //fire collision for both the objects
-                onCollisionEnter(gameObject.collider);
-                if(gameObject.onCollisionEnter(this.collider))
-                    extrapolate(gameObject.collider);
+            //if this gameObject collides with the other one
+            if(gameObject.collide(this.collider)){
+                extrapolate(gameObject.collider);
 
-                //add this collision to my collision registers, so the other gameObject won't register it again if it does collide again.
-                lastMoveCollisions.add(gameObject);
+                //if they were not already colliding i can fire their collision events
+                if(!lastMoveCollisions.contains(gameObject)){
+                    //fire collision for both the objects
+                    onCollisionEnter(gameObject.collider);
+                    gameObject.onCollisionEnter(this.collider);
+                }
 
-                //extrapolate from the other gameObject
+                //add this collision to my collision registers, so the other gameObject won't register it again if it does collide again in the next frame.
+                nowCollision.add(gameObject);
+                gameObject.lastMoveCollisions.add(this);
             }
         }
+
+        //swapping the old collisions with the new collisions.
+        ArrayList<GameObject> temp = lastMoveCollisions;
+        lastMoveCollisions = nowCollision;
+        nowCollision = temp;
 
     }
 
@@ -128,8 +134,8 @@ public abstract class GameObject {
      * @param collider the collider that's touching this object
      */
     protected void extrapolate(Collider collider) {
-        Vector extrapolateDirection = position.sub(collider.gameObject.position).normalize();
-        position.sumUpdate(extrapolateDirection.multiplyUpdate(collider.size() + this.collider.size()));
+        Vector extrapolationVector = position.sub(collider.gameObject.position).normalize().multiplyUpdate(collider.size()/2 + this.collider.size()/2);
+        position.set(collider.gameObject.position.sum(extrapolationVector));
     }
 
 
@@ -145,10 +151,11 @@ public abstract class GameObject {
     /**
      * Destroy this gameObject removing it from the list of the gameObjects that the Engine updates and draw.
      */
-    public void destroy(){
+    public GameObject destroy(){
         synchronized (Engine.toDestroyGameObject){
             Engine.toDestroyGameObject.add(this);
         }
+        return this;
     }
 
 

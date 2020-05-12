@@ -175,10 +175,13 @@ public final class Engine {
 
             //delete deleted gameObjects
             synchronized (toDestroyGameObject){
+                //deleting every deleted gameObject
                 for (GameObject gameObject : toDestroyGameObject){
                     gameObjects.remove(gameObject);
                 }
-                toDestroyGameObject.clear();
+                //clearing the list of the gameObjects to remove
+                if(toDestroyGameObject.size() != 0)
+                    toDestroyGameObject.clear();
             }
 
             //draw the gameObjects on the buffer
