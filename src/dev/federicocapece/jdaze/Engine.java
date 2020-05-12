@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * then call Engine.start() and enjoy the magic of your GameObjects being automatically updated and drawn.
  * NOTE: Instantiate the GameObjects only after the start() of the Engine.
  */
+//TODO: Engine could directly extend Thread instead of using an inner thread.
 public final class Engine {
     /**
      * The thread of the gameLoop, use start() and stop() to manage it.
@@ -164,7 +165,7 @@ public final class Engine {
             //delete deleted gameObjects
             synchronized (toDestroyGameObject){
                 for (GameObject gameObject : toDestroyGameObject){
-                    gameObjects.remove(toDestroyGameObject);
+                    gameObjects.remove(gameObject);
                 }
                 toDestroyGameObject.clear();
             }
