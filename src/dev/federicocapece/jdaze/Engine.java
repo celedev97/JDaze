@@ -168,10 +168,9 @@ public final class Engine {
         synchronized (gameObjects){
             //run each gameObject update
             int size = gameObjects.size();
-            for (int i = 0; i < size; i++) {
-                GameObject gameObject = gameObjects.get(i);
+            for (GameObject gameObject : gameObjects) {
                 //skip gameObject if it's been destroyed
-                if(!toDestroyGameObject.contains(gameObject))
+                if (!toDestroyGameObject.contains(gameObject))
                     gameObject.update();
             }
 
