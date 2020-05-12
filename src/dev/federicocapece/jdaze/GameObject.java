@@ -104,7 +104,7 @@ public abstract class GameObject {
 
         //check collisions
         for(GameObject gameObject : Engine.gameObjects){
-            if(gameObject.collider == null) continue;
+            if(gameObject.collider == null || gameObject.collider == collider) continue;
 
             //if this gameObject collides with the other one, and this callision hasn't been called already
             if(gameObject.collide(this.collider) && !gameObject.lastMoveCollisions.contains(this)){
