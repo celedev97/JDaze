@@ -171,19 +171,13 @@ public final class Engine {
         }
         //#endregion
 
-        //
-
-
-
-
-
-
-
         //clean the screen buffer
         renderer.clean();
         //draw the gameObjects on the buffer
-        for (GameObject gameObject : gameObjects){
-            renderer.update(gameObject);
+        synchronized (gameObjects) {
+            for (GameObject gameObject : gameObjects) {
+                renderer.update(gameObject);
+            }
         }
         //draw the buffer to the canvas
         renderer.update();
