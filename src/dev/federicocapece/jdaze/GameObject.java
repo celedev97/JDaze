@@ -142,10 +142,22 @@ public abstract class GameObject {
         return this.collider != null && this.collider.collide(collider);
     }
 
-    public void Destroy(){
+    /**
+     * Destroy this gameObject removing it from the list of the gameObjects that the Engine updates and draw.
+     */
+    public void destroy(){
         synchronized (Engine.toDestroyGameObject){
             Engine.toDestroyGameObject.add(this);
         }
+    }
+
+
+    /**
+     * Destroy a gameObject removing it from the list of the gameObjects that the Engine updates and draw.
+     * @param gameObject the gameObject to destroy
+     */
+    public static void destroy(GameObject gameObject){
+        gameObject.destroy();
     }
 
 }
