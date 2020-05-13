@@ -18,14 +18,21 @@ public final class Input {
      * do not touch this directly
      */
     private static HashSet<Integer> keysDown = new HashSet<>();
+    /**
+     * The set of mouse buttons that are currently pressed,
+     * do not touch this directly
+     */
     private static HashSet<Integer> mouseButtonsDown = new HashSet<>();
+    /**
+     * The float representing the mouse wheel rotation in the last frame.
+     */
     private static float mouseWheelRotation = 0f;
 
     private static final Vector mousePosition = new Vector(0,0);
 
     //#endregion
 
-    //#region Engine methods
+    //#region Engine methods/listener
 
     /**
      * Internal method for resetting the mouse wheel status, called after each update
@@ -177,11 +184,45 @@ public final class Input {
      * so it's recommended to store it and not to call this multiple time for every update.
      * @return the Vector representing the mouse position
      */
-    public Vector getMouseWorldPosition(){
-        System.out.println("Sorry i'm too lazy to implement this now");
-        return null;
+    public static Vector getMouseWorldPosition(){
+        return Engine.camera.canvasToWorldPoint(mousePosition);
     }
 
+    public static Vector getWASDVector(){
+        Vector movement = Vector.ZERO();
+
+        if(isKeyDown(KeyEvent.VK_S)){
+            movement.sumUpdate(Vector.DOWN());
+        }else if(isKeyDown(KeyEvent.VK_W)) {
+            movement.sumUpdate(Vector.UP());
+        }
+
+        if(isKeyDown(KeyEvent.VK_A)){
+            movement.sumUpdate(Vector.LEFT());
+        }else if(isKeyDown(KeyEvent.VK_D)) {
+            movement.sumUpdate(Vector.RIGHT());
+        }
+
+        return movement.normalize();
+    }
+
+    public static Vector getArrowsVector(){
+        Vector movement = Vector.ZERO();
+
+        if(isKeyDown(KeyEvent.VK_UP)){
+            movement.sumUpdate(Vector.DOWN());
+        }else if(isKeyDown(KeyEvent.VK_DOWN)) {
+            movement.sumUpdate(Vector.UP());
+        }
+
+        if(isKeyDown(KeyEvent.VK_LEFT)){
+            movement.sumUpdate(Vector.LEFT());
+        }else if(isKeyDown(KeyEvent.VK_RIGHT)) {
+            movement.sumUpdate(Vector.RIGHT());
+        }
+
+        return movement.normalize();
+    }
 
     //#endregion
 
