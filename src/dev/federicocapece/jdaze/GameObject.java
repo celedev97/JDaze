@@ -128,6 +128,11 @@ public abstract class GameObject {
 
     }
 
+
+    public final void moveTowards(Vector targetPosition, float speed){
+        move(targetPosition.sub(position).normalize().multiplyUpdate(speed));
+    }
+
     /**
      * Extrapolate this GameObject from inside another collider.
      * This ignores the possibility of collisions during the extrapolation for making this lighter.
