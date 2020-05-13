@@ -124,6 +124,8 @@ public final class Engine {
         frame.revalidate();
         frame.repaint();
         frame.setVisible(previouslyVisible);
+
+        Engine.renderer.requestFocus();
         //#endregion
 
         //initialize engine stuff for the gameLoop
