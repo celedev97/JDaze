@@ -91,7 +91,7 @@ public final class Input {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            System.out.println("DRAGMOUSE");
+            mousePosition.set(e.getX(), e.getY());
         }
 
         @Override
