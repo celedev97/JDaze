@@ -272,6 +272,9 @@ public class Vector {
      * @return the multiplication result
      */
     public Vector divide(float dividend){
+        //if the dividend is zero i can't do the division, or it would be NaN
+        if(dividend == 0)
+            return ZERO();
         return new Vector(this.x / dividend, this.y / dividend);
     }
 
@@ -282,6 +285,10 @@ public class Vector {
      * @return this vector after the division
      */
     public Vector divideUpdate(float dividend){
+        //if the dividend is zero i can't do the division, or it would be NaN
+        if(dividend == 0)
+            return this;
+
         this.x /= dividend;
         this.y /= dividend;
         return this;
