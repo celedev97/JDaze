@@ -3,6 +3,7 @@ package dev.federicocapece.jdaze;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * The Engine of JDaze.
@@ -33,12 +34,12 @@ public final class Engine {
      * The list of the gameObjects that are currently managed from the Game Loop.
      * You shouldn't touch this directly.
      */
-    protected final static ArrayList<GameObject> gameObjects;
+    protected final static HashSet<GameObject> gameObjects;
     /**
      * The list of the gameObjects that will be destroyed in this Game Loop.
      * You shouldn't touch this directly.
      */
-    protected final static ArrayList<GameObject> toDestroyGameObject;
+    protected final static HashSet<GameObject> toDestroyGameObject;
 
     /**
      * The StopWatch used to measure the Game Loop duration.
@@ -66,8 +67,8 @@ public final class Engine {
     private static float targetCycleMS;
 
     static {
-        gameObjects = new ArrayList<>();
-        toDestroyGameObject = new ArrayList<>();
+        gameObjects = new HashSet<>();
+        toDestroyGameObject = new HashSet<>();
 
         //creating the renderer canvas
         renderer = new Renderer();
