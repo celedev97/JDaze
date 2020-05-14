@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Arrays;
 
 
 /**
@@ -103,9 +104,7 @@ public class Renderer extends Canvas {
      * Turn the screen buffer full white
      */
     protected void clean() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0xffffff;
-        }
+        Arrays.fill(pixels, 0xffffff);
     }
 
 }

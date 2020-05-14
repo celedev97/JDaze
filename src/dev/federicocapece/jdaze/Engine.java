@@ -14,12 +14,6 @@ import java.util.HashSet;
  */
 public final class Engine {
     /**
-     * The thread of the gameLoop, use start() and stop() to manage it.
-     * Do not touch this directly, for any reason, this will cause unexpected behaviour in the engine.
-     */
-    private static Thread gameThread = null;
-
-    /**
      * The renderer of the Engine.
      * You can add this to the GUI like you would normally add any Swing component.
      */
@@ -104,36 +98,24 @@ public final class Engine {
      * @param maxFPS the framecap to the Engine
      */
     public static void start(int maxFPS){
-        //#region Closing the last Engine thread
-        if(gameThread != null) {
-            gameThread.interrupt();
-            while (gameThread.isAlive()) {
-                try {
-                    gameThread.interrupt();
-                    gameThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        //#endregion
+        stop();
 
         //#region Forcing redraw of the GUI
-        Window frame = SwingUtilities.getWindowAncestor(Engine.renderer);
-        boolean previouslyVisible = frame.isVisible();
+        Window frame = SwingUtilities.getWindowAncestor(renderer);
+
+        //boolean previouslyVisible = frame.isVisible();
         frame.setVisible(true);
         frame.revalidate();
         frame.repaint();
-        frame.setVisible(previouslyVisible);
+        //frame.setVisible(previouslyVisible);
 
-        Engine.renderer.requestFocus();
+        renderer.requestFocus();
+        renderer.init();
         //#endregion
 
         //initialize engine stuff for the gameLoop
         targetCycleMS = 1000f / maxFPS;
         gameObjects.clear();
-        renderer.init();
-
 
         //starting the gameloop
         gameThread = new Thread(){
@@ -141,11 +123,15 @@ public final class Engine {
             public void run() {
                 stopWatch.start();
                 while (!isInterrupted()){
-                    update();
+                    try{
+                        update();
+                    }catch (InterruptedException ex){
+                        break;
+                    }
                 }
+                System.out.println("INTERRUPTED!!!");
             }
         };
-
         gameThread.start();
     }
 
@@ -158,9 +144,15 @@ public final class Engine {
 
 
     /**
+     * The thread of the gameLoop, use Engine.start() and Engine.stop() to manage it.
+     * Do not touch this directly, for any reason, this will cause unexpected behaviour in the engine.
+     */
+    private static Thread gameThread = null;
+
+    /**
      * The Game Loop, does literally everything.
      */
-    private static void update(){
+    private static void update() throws InterruptedException{
         //restarting stopwatch to measure MS in this game cycle
         stopWatch.start();
 
@@ -202,13 +194,9 @@ public final class Engine {
 
         //sleeping for the remaining time of this cycle
         float targetSleep = targetCycleMS - stopWatch.getElapsedMS();
-        try {
-            while(targetSleep > 1){
-                Thread.sleep(1);
-                targetSleep = targetCycleMS - stopWatch.getElapsedMS();
-            }
-        }catch (InterruptedException ex){
-            return;
+        while(targetSleep > 1){
+            Thread.sleep(1);
+            targetSleep = targetCycleMS - stopWatch.getElapsedMS();
         }
 
         //calculating deltaTime for next Cycle
