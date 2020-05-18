@@ -210,9 +210,9 @@ public final class Input {
         Vector movement = Vector.ZERO();
 
         if(isKeyDown(KeyEvent.VK_UP)){
-            movement.sumUpdate(Vector.DOWN());
-        }else if(isKeyDown(KeyEvent.VK_DOWN)) {
             movement.sumUpdate(Vector.UP());
+        }else if(isKeyDown(KeyEvent.VK_DOWN)) {
+            movement.sumUpdate(Vector.DOWN());
         }
 
         if(isKeyDown(KeyEvent.VK_LEFT)){
